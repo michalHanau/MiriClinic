@@ -1,0 +1,37 @@
+.home-page {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    text-align: center;
+    background-color: #f0f0f0;
+  }
+  
+  h1 {
+    font-size: 36px;
+    margin-bottom: 20px;
+  }
+  
+  .appointment-button {
+    padding: 15px 30px;
+    font-size: 18px;
+    background-color: #4caf50;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  .appointment-button:hover {
+    background-color: #45a049;
+  }
+  
+  /* מדיה שאילתות לרספונסיביות */
+  @media (max-width: 768px) {
+    .appointment-button {
+      width: 100%;
+      font-size: 16px;
+    }
+  }
+  

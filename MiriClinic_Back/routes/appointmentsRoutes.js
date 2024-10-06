@@ -1,0 +1,47 @@
+const express = require('express');
+const router = express.Router();
+
+const controller = require('../controllers/AppointmentController')
+
+router.get('/', async (req, res, next) => {
+    try {
+        const result = await controller.getAll(req.query)
+        res.json(result);
+    }
+    catch (error) {
+        if (error.message.startsWith('Not found'))
+            res.status(404).send(`Not found`);
+        next(error);
+    }
+})
+
+router.get('/available/:treatmentId', async (req, res, next) => {
+    try {
+        // const selectedDate = req.query.date;
+        // console.log(selectedDate)
+        const result = await controller.getAvailableAppointment(req.params.treatmentId, req.query.date)
+        res.json(result);
+    }
+    catch (error) {
+        if (error.message.startsWith('Not found'))
+            res.status(404).send(`Not found`);
+        next(error);
+    }
+})
+
+router.post('/', async (req, res, next) => {
+    try {
+        let result = await controller.insert(req.body);
+        res.status(201).send(result);
+    }
+    catch (error) {
+        if (error.message == 'invalid new volunteer id') {
+            res.status(400).send(`invalid new volunteer id ${req.body._id} `)
+        }
+        else next(error);
+    }
+
+});
+
+
+module.exports = router;

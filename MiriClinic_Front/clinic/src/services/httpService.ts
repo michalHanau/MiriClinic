@@ -1,0 +1,23 @@
+import axios, { AxiosInstance, isAxiosError  } from 'axios';
+
+const BASE_URL = process.env.REACT_APP_API_URL;
+
+const api: AxiosInstance = axios.create({
+  baseURL: BASE_URL,
+  headers: {
+    'Content-Type': 'application/json',
+  },
+});
+
+api.interceptors.response.use(
+  (response) => response,
+  (error) => {
+    // כאן ניתן להוסיף ניהול שגיאות גלובלי
+    if (error.response && error.response.status === 401){
+        console.log("שגיאת 401")
+    }
+    return Promise.reject(error);
+  }
+);
+
+export default api;

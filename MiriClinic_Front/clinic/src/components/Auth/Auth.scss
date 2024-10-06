@@ -1,0 +1,23 @@
+.auth-container {
+    margin-top: 80px; // מרווח כדי לא להיתקל ב-navbar
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: calc(100vh - 80px); // להתאים לגובה המסך, כולל ה-navbar
+}
+
+.auth-paper {
+    padding: 20px;
+    width: 100%;
+    max-width: 500px; // הגבלת רוחב
+    @media (max-width: 600px) {
+        padding: 15px; // התאמה למסכים קטנים
+    }
+}
+
+// כפתורים מתאימים לגודל מסך
+button {
+    @media (max-width: 600px) {
+        font-size: 0.9em;
+    }
+}
