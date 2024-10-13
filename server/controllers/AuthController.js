@@ -1,23 +1,24 @@
 const Controller = require('./Controller');
-const PariorityService = require('../services/AuthService');
+const PariorityService = require('../services/AuthServices')
 
-
-class AuthController extends Controller {
+class CustomersController extends Controller {
     constructor() {
         super(PariorityService)
-
     }
 
-    async registerUser(userData) {
-        const { first_name, last_name, phone, email, password, birthdate } = userData;
-        return await this.service.registerUser(first_name, last_name, phone, email, password, birthdate);
-    }
+    // פונקציה שמטפלת באישור המשתמש
+    async authenticate() {
+        const url = await this.service.generateAuthUrl();
+        return url;
+    };
 
-    async loginUser(userData) {
-        const { email, password } = userData;
-        return await this.service.loginUser(email, password);
-    }
+    // פונקציה שמטפלת בקוד ההחזרה מ-Google
+    async oauth2callback(code) {
+        const tokens = await this.service.handleOAuth2Callback(code);
+        return tokens;
+    };
+
 }
 
-let authController = new AuthController();
-module.exports = authController;
+let customersController = new CustomersController();
+module.exports = customersController;

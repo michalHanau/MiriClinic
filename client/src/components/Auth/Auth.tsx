@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { TextField, Button, Typography, Container, Paper, Grid, } from '@mui/material';
 import { Customers } from '../../models/customers.model';
-import AuthService from '../../services/auth.service';
+import AuthService from '../../services/login.service';
 import './Auth.scss'; 
 import { useUser } from '../../hooks/UserProvider'
 

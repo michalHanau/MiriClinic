@@ -2,12 +2,14 @@ const Controller = require('./Controller');
 const PariorityService = require('../services/AppointmentService')
 const TreatmentService = require('../services/TreatmentService');
 const OpeningHoursService = require('../services/OpeningHoursService')
+const AuthServices = require('../services/AuthServices')
 
 class AppointmentController extends Controller {
     constructor() {
         super(PariorityService)
         this.treatmentService =  TreatmentService;
         this.openingHoursService = OpeningHoursService
+        this.authServices = AuthServices
     }
 
     async getAvailableDates(treatmentId){
@@ -22,6 +24,14 @@ class AppointmentController extends Controller {
         const availableSlots = await this.service.getAvailableAppointment(treatmentDuration, openingHours,date);
         
         return availableSlots;
+    }
+
+    async insertNewAppointment(newAppointment) {
+        const { tokens, oAuth2Client } = await this.authServices.getManagerTokens();
+        console.log(oAuth2Client)
+        const insertedObj = await this.service.insertNewAppointments(newAppointment,tokens,oAuth2Client);
+
+        return insertedObj;
     }
 }
 

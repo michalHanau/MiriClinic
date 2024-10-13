@@ -17,8 +17,6 @@ router.get('/', async (req, res, next) => {
 
 router.get('/available/:treatmentId', async (req, res, next) => {
     try {
-        // const selectedDate = req.query.date;
-        // console.log(selectedDate)
         const result = await controller.getAvailableAppointment(req.params.treatmentId, req.query.date)
         res.json(result);
     }
@@ -31,7 +29,7 @@ router.get('/available/:treatmentId', async (req, res, next) => {
 
 router.post('/', async (req, res, next) => {
     try {
-        let result = await controller.insert(req.body);
+        let result = await controller.insertNewAppointment(req.body);
         res.status(201).send(result);
     }
     catch (error) {

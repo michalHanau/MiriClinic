@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const roles = require('../enum/rolesEnum');
 
 const customersSchema = mongoose.Schema({
     customer_id: Number,
@@ -7,7 +8,16 @@ const customersSchema = mongoose.Schema({
     phone: String,
     email: String,
     birthdate: Date,
-    password: String
+    role: {
+        type: String,
+        enum: roles,
+    },
+    password: String,
+    googleAuth: {
+        access_token: String,
+        refresh_token: String,
+        expiry_date: Number
+    }
 }, { collection: 'Customers' }
 )
 

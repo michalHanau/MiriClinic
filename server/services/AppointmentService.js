@@ -2,6 +2,8 @@ const appointmentModel = require('../models/appointmentsModel');
 require('dotenv').config();
 const timeZone = process.env.TZ
 const { DateTime } = require('luxon');
+const { google } = require('googleapis');
+
 
 
 //const {  localDateTime , timezone } = require('../utils/timezone');
@@ -25,7 +27,7 @@ class AppointmentService {
         //שליפת התורים התפוסים
         const bookedAppointments = await this.getAppointmentsByDay(date);
 
-        const { open_time, close_time } = openingHours; 
+        const { open_time, close_time } = openingHours;
 
         //יצירת משתנה שיבדוק לפי שעה האם פנוי/תפוס
         let currentTime = new Date(open_time);
@@ -65,19 +67,18 @@ class AppointmentService {
                 break;
             }
         }
-        console.log(availableSlots)
         return availableSlots;
     }
 
     async getAppointmentsByDay(date) {
-    try {
-        const appointmentsByDay = await appointmentModel.find({ date: date }, { _id: 0, date: 1, start: 1, end: 1 });
-        return appointmentsByDay;
-    } catch (err) {
-        console.error('Error fetching appointments:', err);
-        throw err;
+        try {
+            const appointmentsByDay = await appointmentModel.find({ date: date }, { _id: 0, date: 1, start: 1, end: 1 });
+            return appointmentsByDay;
+        } catch (err) {
+            console.error('Error fetching appointments:', err);
+            throw err;
+        }
     }
-}
 
     //ללא שינוי של שליפה לפי יום
     // async getAvailableAppointment(treatmentDuration, openingHours) {
@@ -191,13 +192,77 @@ class AppointmentService {
     //     }
     // }
 
-    async insert(newAppointments) {
+    async insertNewAppointments(newAppointments, tokens, oAuth2Client) {
 
-    let appointments = new appointmentModel(newAppointments)
-    appointments.save()
-    return newAppointments;
+        let appointments = new appointmentModel(newAppointments)
+        await appointments.save()
 
-}
+        // שלב 1: שמור את התאריך מהשדה date
+        const appointmentDate = new Date(newAppointments.date); // התאריך הנכון
+        // שלב 2: פרק את השעות מהשדות start ו-end
+        const startTime = new Date(newAppointments.start);
+        const endTime = new Date(newAppointments.end);
+
+        // שלב 3: עדכן את השעות בתאריך הנכון
+        startTime.setFullYear(appointmentDate.getFullYear());
+        startTime.setMonth(appointmentDate.getMonth());
+        startTime.setDate(appointmentDate.getDate());
+
+        endTime.setFullYear(appointmentDate.getFullYear());
+        endTime.setMonth(appointmentDate.getMonth());
+        endTime.setDate(appointmentDate.getDate());
+
+        // יצירת אובייקט האירוע
+        const eventDetails = {
+            title: "עוד מעט נכניס כותרת",
+            description: newAppointments.notes,
+            startDateTime: startTime.toISOString(), // המרת לאיסום המומלץ של תאריך ושעה
+            endDateTime: endTime.toISOString(), // המרת לאיסום המומלץ של תאריך ושעה
+        };
+        await this.addEventToManagerCalendar(eventDetails, tokens, oAuth2Client);
+        return newAppointments;
+    }
+
+    async addEventToManagerCalendar(eventDetails, tokens, oAuth2Client) {
+        console.log("tokens:", tokens);
+
+        oAuth2Client.setCredentials(tokens); // הגדרת ה-Tokens
+        console.log("OAuth2Client credentials:", oAuth2Client.credentials);
+
+        const calendar = google.calendar({ version: 'v3', auth: oAuth2Client });
+        //console.log(calendar.events)
+        const event = {
+            summary: eventDetails.title,
+            description: eventDetails.description,
+            start: {
+                dateTime: eventDetails.startDateTime,
+                timeZone: 'Asia/Jerusalem',
+            },
+            end: {
+                dateTime: eventDetails.endDateTime,
+                timeZone: 'Asia/Jerusalem',
+            },
+        };
+        console.log("event", event)
+        // const calendarList = await calendar.calendarList.list();
+
+        // calendarList.data.items.forEach((calendar) => {
+        //   console.log(`Calendar ID: ${calendar.id}, Summary: ${calendar.summary}`);
+        // });
+
+        try {
+            const response = await calendar.events.insert({
+                auth: oAuth2Client,
+                calendarId: 'primary', // יומן ראשי
+                resource: event,
+            });
+            console.log('Event created: %s', response.data.htmlLink);
+        } catch (error) {
+            console.error('Error creating event: ', error);
+        }
+    }
+
+
 
 
 }

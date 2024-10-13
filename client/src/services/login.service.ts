@@ -4,10 +4,9 @@ import api, {} from "./httpService"
 
 class AuthService{
 
-    private BASE_URL: string = "/auth";
+    private BASE_URL: string = "/login";
 
     registerUser(data: Customers) {
-        console.log("נכנסנו לפונקציה")
         return api.post(`${this.BASE_URL}/register`, data)
         .then(res => res.data)
         .catch(error => {

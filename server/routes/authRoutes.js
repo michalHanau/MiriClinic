@@ -1,30 +1,29 @@
 const express = require('express');
 const router = express.Router();
-const controller = require('../controllers/AuthController')
 
-router.post('/register', async (req, res, next) => {
+const Controller = require('../controllers/AuthController');
+
+
+router.get('/', async (req, res) => {
     try {
-        const result = await controller.registerUser(req.body);
-        res.status(201).json(result); 
+        const url = await Controller.authenticate();
+        res.redirect(url); 
     } catch (error) {
-        if (error.message === 'User already exists') {
-            return res.status(409).send('User already exists');
-        }
-        next(error);
+        console.error('Error generating auth URL:', error);
+        res.status(500).send('Internal Server Error');
     }
 });
 
-router.post('/login', async (req, res, next) => {
+router.get('/oauth2callback', async (req, res) => {
+    const { code } = req.query;
     try {
-        const result = await controller.loginUser(req.body);
-        res.json(result);
+        const tokens = await Controller.oauth2callback(code);
+        console.log('Tokens acquired:', tokens);
+        res.send('Authentication successful! You can close this tab.');
     } catch (error) {
-        if (error.message === 'User not found' || error.message === 'Invalid password') {
-            return res.status(401).send('Invalid email or password');
-        }
-        next(error);
+        console.error('Error handling OAuth2 callback:', error);
+        res.status(500).send('Authentication failed. Please try again.');
     }
 });
 
 module.exports = router;
-

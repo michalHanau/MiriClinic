@@ -1,6 +1,8 @@
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const customersModel = require('../models/customersModel');
+const roles = require('../enum/rolesEnum');
+
 
 class AuthService {
   constructor() {
@@ -15,7 +17,7 @@ class AuthService {
     const maxCustomer = await customersModel.findOne().sort({ customer_id: -1 }).select('customer_id -_id');
     const customer_id = maxCustomer ? maxCustomer.customer_id + 1 : 1;
     const hashedPassword = await bcrypt.hash(password, 10);
-    const newUser = new customersModel({customer_id, first_name, last_name, phone, email, birthdate, password: hashedPassword });
+    const newUser = new customersModel({customer_id, first_name, last_name, phone, email, birthdate, role:roles.DEVELOPER, password: hashedPassword });
     await newUser.save();
     return { success: true, user: newUser };
   }

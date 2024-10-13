@@ -1,10 +1,11 @@
-
 const mongooseConnect = require('./db/mongoConnect');
 
 const appointmentsRoute = require('./routes/appointmentsRoutes');
 const customersRoute = require('./routes/customersRoutes');
 const treatmentsRoute = require('./routes/treatmentsRoutes');
-const authRoute = require('./routes/authRoutes');
+const loginRoute = require('./routes/loginRoutes');
+const authRoutes = require('./routes/authRoutes'); 
+
 
 const express = require('express');
 const cors = require('cors');
@@ -20,7 +21,8 @@ app.use(cors());
 app.use('/api/appointments', appointmentsRoute);
 app.use('/api/customers', customersRoute);
 app.use('/api/treatments', treatmentsRoute);
-app.use('/api/auth', authRoute);
+app.use('/api/login', loginRoute);
+app.use('/api/auth', authRoutes);
 
 
 (async function() {
