@@ -32,7 +32,7 @@ function App() {
       {/* תוכן הדפים יוחלף */}
       <Routes>
         <Route path="/" element={<Home />} />
-        <Route path="/Auth" element={ <Auth/>} />
+        {/* <Route path="/Auth" element={ <Auth/>} /> */}
         <Route path="/ChoiceTreatment" element={ <ChoiceTreatment/>} />
         {/* <Route path="/Calender" element={ <Calender/>} /> */}
         <Route path="/AvailableAppointments/:treatmentId" element={ <AvailableAppointments/>} />

@@ -1,5 +1,5 @@
 export class Customers{
-    customer_id?: number = 0 
+    // customer_id?: number = 0 
     first_name!: string
     last_name!: string
     phone!: string
