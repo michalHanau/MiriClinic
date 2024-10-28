@@ -5,6 +5,8 @@ import { Appointment } from '../../models/appointments.model';
 import { useLocation, useParams } from 'react-router-dom';
 
 interface AvailableAppointmentsProps {
+  selectedDate: string
+  treatmentId: string | undefined 
 }
 
 interface AvailableAppointment {
@@ -16,18 +18,13 @@ interface AvailableAppointment {
 
 
 const AvailableAppointments = (props: AvailableAppointmentsProps) => {
-  const { treatmentId } = useParams<{ treatmentId: string }>();
-  const location = useLocation();
-  const selectedDate = location.state?.selectedDate;
-  console.log('Selected Date:', selectedDate);
-  console.log('Treatment ID:', treatmentId);
 
   const [appointments, setAppointments] = useState<AvailableAppointment[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
-    AppointmentService.getAvailableAppointments(Number(treatmentId), selectedDate)
+    AppointmentService.getAvailableAppointments(Number(props.treatmentId), props.selectedDate)
       .then(data => {
         setAppointments(data);
         setLoading(false);
@@ -40,7 +37,7 @@ const AvailableAppointments = (props: AvailableAppointmentsProps) => {
 
   const addNewAppointment = (slot: any) => {
     console.log(slot)
-    const newAppointment = new Appointment(1, Number(treatmentId), slot.date, slot.start, slot.end)
+    const newAppointment = new Appointment(10, Number(props.treatmentId), slot.date, slot.start, slot.end)
     AppointmentService.addNewAppointment(newAppointment)
     console.log(newAppointment)
   }
@@ -50,7 +47,7 @@ const AvailableAppointments = (props: AvailableAppointmentsProps) => {
 
   return (
 
-    <div>
+    <div style={{ marginTop: '80px', padding: '20px' }}>
       <Typography variant="h6">Available Appointments</Typography>
       <div>
 

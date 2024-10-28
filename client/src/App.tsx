@@ -34,8 +34,8 @@ function App() {
         <Route path="/" element={<Home />} />
         {/* <Route path="/Auth" element={ <Auth/>} /> */}
         <Route path="/ChoiceTreatment" element={ <ChoiceTreatment/>} />
-        {/* <Route path="/Calender" element={ <Calender/>} /> */}
-        <Route path="/AvailableAppointments/:treatmentId" element={ <AvailableAppointments/>} />
+        <Route path="/Calender/:treatmentId" element={ <Calender/>} />
+        {/* <Route path="/AvailableAppointments/:treatmentId" element={ <AvailableAppointments/>} /> */}
         {/* ניתן להוסיף עוד דפים עם Route */}
       </Routes>
     </Router>

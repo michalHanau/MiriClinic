@@ -22,7 +22,6 @@ class AppointmentController extends Controller {
         const dayOfWeek = new Date(date).getDay()
         const openingHours = await this.openingHoursService.getOpeningHours(dayOfWeek+1);
         const availableSlots = await this.service.getAvailableAppointment(treatmentDuration, openingHours,date);
-        
         return availableSlots;
     }
 

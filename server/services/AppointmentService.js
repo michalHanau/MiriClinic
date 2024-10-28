@@ -1,4 +1,6 @@
 const appointmentModel = require('../models/appointmentsModel');
+const treatmentsModel = require('../models/treatmentsModel');
+const customersModel = require('../models/customersModel');
 require('dotenv').config();
 const timeZone = process.env.TZ
 const { DateTime } = require('luxon');
@@ -193,7 +195,7 @@ class AppointmentService {
     // }
 
     async insertNewAppointments(newAppointments, tokens, oAuth2Client) {
-
+        
         let appointments = new appointmentModel(newAppointments)
         await appointments.save()
 
@@ -212,10 +214,24 @@ class AppointmentService {
         endTime.setMonth(appointmentDate.getMonth());
         endTime.setDate(appointmentDate.getDate());
 
+        //למציאת שם הטיפול לפי הID שנתון לי מפירוט התור
+        //לבדוק האם ניתן להשתמש בפונקציה שקיימת כבר בסרוויס של  טיפולים
+        const treatment = await treatmentsModel.findOne({ treatment_id: newAppointments.treatment_id });
+        if (!treatment) {
+            throw new Error('Treatment not found');
+        }
+
+        //למציאת שם הלקוחה
+        console.log(newAppointments.customer_id)
+        const customer = await customersModel.findOne({ customer_id: newAppointments.customer_id });
+        if (!customer) {
+            throw new Error('customer not found');
+        }
+        
         // יצירת אובייקט האירוע
         const eventDetails = {
-            title: "עוד מעט נכניס כותרת",
-            description: newAppointments.notes,
+            title: treatment.treatment_name + "-" + customer.first_name + " " + customer.last_name,
+            description: "כאן שומרים הערות/פירוט" + newAppointments.notes,
             startDateTime: startTime.toISOString(), // המרת לאיסום המומלץ של תאריך ושעה
             endDateTime: endTime.toISOString(), // המרת לאיסום המומלץ של תאריך ושעה
         };
@@ -224,10 +240,10 @@ class AppointmentService {
     }
 
     async addEventToManagerCalendar(eventDetails, tokens, oAuth2Client) {
-        console.log("tokens:", tokens);
+       // console.log("tokens:", tokens);
 
         oAuth2Client.setCredentials(tokens); // הגדרת ה-Tokens
-        console.log("OAuth2Client credentials:", oAuth2Client.credentials);
+        //console.log("OAuth2Client credentials:", oAuth2Client.credentials);
 
         const calendar = google.calendar({ version: 'v3', auth: oAuth2Client });
         //console.log(calendar.events)
@@ -243,7 +259,9 @@ class AppointmentService {
                 timeZone: 'Asia/Jerusalem',
             },
         };
-        console.log("event", event)
+        //console.log("event", event)
+
+
         // const calendarList = await calendar.calendarList.list();
 
         // calendarList.data.items.forEach((calendar) => {

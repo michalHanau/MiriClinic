@@ -18,14 +18,16 @@ class AuthService {
         return oAuth2Client.generateAuthUrl({
             access_type: 'offline',
             scope: scopes,
+            //מבקש לקבל את התוקן-(refresh_token) 
+            //שעל ידו ניתן לחדש את התוקן אוטומטי בכל פעם שמבקשים גישה
+            prompt: 'consent' 
         });
     };
 
     // פונקציה שמטפלת בקוד ההחזרה מ-Google
     async handleOAuth2Callback(code) {
-
         const { tokens } = await oAuth2Client.getToken(code);
-
+        console.log('Tokens received:', tokens);
         oAuth2Client.setCredentials(tokens);
 
         // שמירת ה-Refresh Token וה-Access Token במסד הנתונים
@@ -33,9 +35,9 @@ class AuthService {
             { customer_id: 10 },
             {
                 googleAuth: {
-                    accessToken: tokens.access_token,
-                    refreshToken: tokens.refresh_token,
-                    expiryDate: tokens.expiry_date,
+                    access_token: tokens.access_token,
+                    refresh_token: tokens.refresh_token,
+                    expiry_date: tokens.expiry_date,
                 }
             }
         );
