@@ -32,7 +32,7 @@ class AuthService {
 
         // שמירת ה-Refresh Token וה-Access Token במסד הנתונים
         await customersModel.updateOne(
-            { customer_id: 10 },
+            { customer_id: 14 },
             {
                 googleAuth: {
                     access_token: tokens.access_token,
@@ -49,7 +49,7 @@ class AuthService {
     // פונקציה לשליפת הטוקנים ולבדיקת תוקפם
     async getManagerTokens() {
 
-        const manager = await customersModel.findOne({ customer_id: 10, role: roles.DEVELOPER });
+        const manager = await customersModel.findOne({ customer_id: 14, role: roles.DEVELOPER });
 
         if (!manager) {
             throw new Error('Customer not found');
@@ -68,8 +68,6 @@ class AuthService {
         }
         // בדיקת אם הטוקן בתוקף
         if (tokens.expiry_date <= Date.now()) {
-            console.log("לכאן נכנס?")
-
             // רענון הטוקן
             const newTokens = await this.refreshAccessToken(tokens);
             // כאן תעדכני את המסד הנתונים עם הטוקנים החדשים

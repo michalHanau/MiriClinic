@@ -9,13 +9,13 @@ class AuthController extends Controller {
     }
 
     async registerUser(userData) {
-        const { first_name, last_name, phone, email, password, birthdate } = userData;
-        return await this.service.registerUser(first_name, last_name, phone, email, password, birthdate);
+        const { first_name, last_name, phone, email, birthdate } = userData;
+        return await this.service.registerUser(first_name, last_name, phone, email, birthdate);
     }
 
     async loginUser(userData) {
-        const { email, password } = userData;
-        return await this.service.loginUser(email, password);
+        const { email } = userData;
+        return await this.service.loginUser(email);
     }
 }
 

@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import './App.css';
 import Calender from './components/Calender/Calendar';
 import ChoiceTreatment from './components/ChoiceTreatment/ChoiceTreatment';
-import Auth from './components/Auth/Auth';
+import Auth from './components/Login/Login';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import Navbar from './components/NavBar/NavBar';
 import Home from './components/Home/Home';

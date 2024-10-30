@@ -36,10 +36,8 @@ const AvailableAppointments = (props: AvailableAppointmentsProps) => {
   }, []);
 
   const addNewAppointment = (slot: any) => {
-    console.log(slot)
-    const newAppointment = new Appointment(10, Number(props.treatmentId), slot.date, slot.start, slot.end)
+    const newAppointment = new Appointment(14, Number(props.treatmentId), slot.date, slot.start, slot.end)
     AppointmentService.addNewAppointment(newAppointment)
-    console.log(newAppointment)
   }
 
   if (loading) return <p>Loading...</p>;
@@ -48,16 +46,12 @@ const AvailableAppointments = (props: AvailableAppointmentsProps) => {
   return (
 
     <div style={{ marginTop: '80px', padding: '20px' }}>
-      <Typography variant="h6">Available Appointments</Typography>
       <div>
-
         {appointments.map((slot, index) => (
           <Button key={index} onClick={() => addNewAppointment(slot)} variant="outlined">
-            {slot.start.toString().split('T')[1].substring(0, 5)} -
-            {slot.end.toString().split('T')[1].substring(0, 5)}
+            {slot.end.toString().split('T')[1].substring(0, 5)} -  {slot.start.toString().split('T')[1].substring(0, 5)}     
           </Button>
         ))}
-
       </div>
 
     </div>

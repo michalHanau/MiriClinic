@@ -61,7 +61,7 @@ import MenuIcon from '@mui/icons-material/Menu';
 import SearchIcon from '@mui/icons-material/Search';
 import { Link, useLocation } from 'react-router-dom';
 import { useUser } from '../../hooks/UserProvider';
-import Auth from '../Auth/Auth';
+import Login from '../Login/Login';
 
 interface NavbarProps {
 }
@@ -74,6 +74,7 @@ const Navbar = (props: NavbarProps) => {
   const [open, setOpen] = useState(false); // מצב הפתיחה של הדיאלוג
 
   const handleClick = () => {
+    console.log("לא נסגר?")
     setOpen(prevOpen => !prevOpen);
   };
 
@@ -94,7 +95,6 @@ const Navbar = (props: NavbarProps) => {
 
   return (
     <Box sx={{ flexGrow: 1 }}>
-      {/* AppBar עם צבע רקע שקוף */}
       <AppBar
         position="fixed"
         sx={{
@@ -137,7 +137,7 @@ const Navbar = (props: NavbarProps) => {
               </>
             ) : (
               <><Button color="inherit" onClick={handleClick}>התחברות / הרשמה</Button>
-              <Auth open={open} onClose={handleClick} /></>
+              <Login open={open} onClose={handleClick} /></>
             )}
 
             <Hidden smUp>
