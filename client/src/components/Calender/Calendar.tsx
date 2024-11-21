@@ -3,6 +3,7 @@ import FullCalendar from '@fullcalendar/react';
 import dayGridPlugin from '@fullcalendar/daygrid';
 import timeGridPlugin from '@fullcalendar/timegrid';
 import interactionPlugin from '@fullcalendar/interaction';
+import Tooltip from '@mui/material/Tooltip'; // ייבוא Tooltip
 import { toJewishDate, formatJewishDate, toHebrewJewishDate, formatJewishDateInHebrew, toGregorianDate, JewishMonth, } from "jewish-date";
 import AvailableAppointments from '../AvailableAppointments/AvailableAppointments';
 import { Link, useParams } from 'react-router-dom';
@@ -24,6 +25,8 @@ const Calender = (props: CalenderProps) => {
     //console.log("jewishDate  ", jewishDate)
     return toHebrewJewishDate(jewishDate);
   };
+
+
 
   const handleDatesSet = (info: any) => {
     info.view.el.querySelectorAll('.fc-daygrid-day').forEach((dayCell: any) => {
@@ -48,10 +51,36 @@ const Calender = (props: CalenderProps) => {
 
   };
 
-  const handleDateClick = (arg: any) => {
-    const date = arg.dateStr;
-    setSelectedDate(date)
-  };
+    const today = new Date()
+    const nextWeek = new Date(today)
+    nextWeek.setDate(today.getDate() + 7)
+
+    const availableDates = [];
+    let date = new Date(today);
+    
+    while (date <= nextWeek) {
+      availableDates.push({
+        start: date.toISOString().split('T')[0],
+        display: 'background',
+        backgroundColor: '#A4E7A4', // צבע רקע לתאריכים שניתן ללחוץ
+      });
+      date.setDate(date.getDate() + 1);
+    }
+    
+    const isSelectable = (date: Date) => {
+      return date >= today && date <= nextWeek;
+    };
+  
+    const handleDateClick = (arg: any) => {
+      const date = new Date(arg.dateStr);
+      
+      if (isSelectable(date)) {
+        setSelectedDate(arg.dateStr)
+      } else {
+        alert('This date is not selectable.');
+      }
+    };
+
 
   useEffect(() => {
     const initialize = async () => {
@@ -69,15 +98,16 @@ const Calender = (props: CalenderProps) => {
   return (
     <div
       style={{
-        backgroundImage: 'url(/images/shutterstock_2474829587.jpg)',
-        backgroundSize: 'cover', // מכסה את כל הרקע
-        backgroundPosition: 'center', // ממרכז את התמונה
-        height: '100vh', // גובה כל הדף
-        width: '100vw', // רוחב כל הדף
-        display: 'flex', // שימוש ב-Flexbox למיקום הלוח שנה
-        alignItems: 'center', // ממרכז את הלוח שנה בגובה
-        justifyContent: 'flex-start', // ממקם אותו בצד ימין
-        padding: '20px' // ריווח מהקצה
+        backgroundColor: '#E1CECD',
+        backgroundSize: 'cover', 
+        backgroundPosition: 'center', 
+        height: '100vh', 
+        width: '100vw', 
+        display: 'flex', 
+        alignItems: 'center', 
+        justifyContent: 'flex-start', 
+        paddingRight: '3%',
+        paddingTop: '2%'
       }}
     >
       <div
@@ -92,33 +122,27 @@ const Calender = (props: CalenderProps) => {
         <FullCalendar
           ref={calendarRef}
           plugins={[dayGridPlugin, timeGridPlugin, interactionPlugin]}
-          //datesSet={handleDatesSet}
-          //dateClick={handleDatesSet}
           initialView="dayGridMonth"
           dateClick={handleDateClick}
-        // events={[
-        //   { title: 'Event 1', date: '2024-10-01' },
-        //   { title: 'Event 2', date: '2024-09-16' }
-        // ]}
-        // הוסיפי כאן עוד הגדרות לפי הצורך
+          events={availableDates}
+          dayCellClassNames={(date) => {
+            const selectedDate = new Date(date.date);
+            return selectedDate < today || selectedDate > nextWeek ? 'unavailable-date' : '';
+          }}
+          dayCellContent={(arg) => {
+            const cellDate = new Date(arg.date);
+            const isDateSelectable = isSelectable(cellDate);
+            
+            return (
+              <Tooltip  arrow title={isDateSelectable ? '' : 'התאריך אינו זמין להזמנת תור'}>
+                <span>{arg.dayNumberText}</span>
+              </Tooltip>
+            );
+          }}
         />
 
 
       </div>
-      {/* {clickedDate ? (
-            <Link to={/AvailableAppointments?treatmentId=${props.treatmentId}}>
-              קביעת תור
-            </Link>
-          ) : null} */}
-      {/* {selectedDate && (
-        <Link
-          to={`/AvailableAppointments?treatmentId=${treatmentId}`}
-          state={{ selectedDate }}
-          style={{ color: 'white', textDecoration: 'underline' }}
-        >
-          ראה תורים פנויים
-        </Link>
-        )} */}
       {selectedDate && (
         <AvailableAppointments selectedDate={selectedDate} treatmentId={treatmentId} />
       )}

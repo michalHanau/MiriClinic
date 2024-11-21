@@ -1,121 +1,43 @@
-// * {
-//     box-sizing: border-box;
-//   }
+.navbar {
+    flex-grow: 1;
+    
+    .app-bar {
+      background-color: transparent;
+      backdrop-filter: blur(8px);
+      transition: 0.3s ease-out;
+      z-index: 1201;
+    }
   
-//   .navbar {
-//     position: fixed;
-//     top: 0;
-//     left: 0;
-//     width: 100%;
-//     padding: 16px 20px;
-//     display: flex;
-//     justify-content: space-between; /* מרווח בין הלוגו לתפריט */
-//     align-items: center;
-//     background: rgba(0, 0, 0, 0.8); /* רקע שקוף */
-//     color: white;
-//     z-index: 1000; /* כדי לוודא שה-navbar יהיה מעל התוכן */
+    .toolbar {
+      display: flex;
+      justify-content: space-between;
+      padding: 16px 20px;
+      height: 70px;
+    }
   
-//     .logo {
-//       a {
-//         text-decoration: none;
-//         color: white;
-//         font-size: 24px;
-//       }
-//     }
+    .logo {
+      height: 70px;
+      width: auto;
+      object-fit: contain;
+    }
   
-//     .list {
-//       list-style-type: none;
-//       display: flex;
-//       margin: 0;
-//       padding: 0;
+    .menu-items {
+      display: flex;
+      gap: 20px;
+    }
   
-//       li {
-//         margin-left: 20px;
+    .user-section {
+      display: flex;
+      align-items: center;
+    }
   
-//         a {
-//           color: white;
-//           text-decoration: none;
-//           &:hover {
-//             text-decoration: underline;
-//           }
-//         }
-//       }
-//     }
-  
-//     .auth {
-//       display: flex;
-//       align-items: center;
-  
-//       .login-button,
-//       .logout-button {
-//         background-color: transparent;
-//         color: white;
-//         border: none;
-//         font-size: 16px;
-//         cursor: pointer;
-//         margin-left: 20px;
-  
-//         &:hover {
-//           text-decoration: underline;
-//         }
-//       }
-  
-//       .personal-appointments {
-//         color: white;
-//         text-decoration: none;
-//         margin-left: 20px;
-  
-//         &:hover {
-//           text-decoration: underline;
-//         }
-//       }
-//     }
-//     .menu {
-//         display: none;
-//     }
-//   }
-  
-  
-//   // מדיה קווריז
-//   @media (max-width: 640px) {
-//     .navbar {
-//       .list {
-//         display: none; /* להסתיר את התפריט במובייל */
-//       }
-  
-//       .menu {
-//         display: flex; /* להציג את הכפתור במובייל */
-//         background: none;
-//         border: none;
-//         cursor: pointer;
-//         margin-left: 20px;
-//         font-size: 20px; /* גודל טקסט לכפתור */
-//         color: white;
-  
-//         &::before {
-//           content: url("data:image/svg+xml, %3Csvg%20xmlns=%27http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%27%20viewBox=%270%200%2024.8%2018.92%27%20width=%2724.8%27%20height=%2718.92%27%3E%3Cpath%20d=%27M23.8,9.46H1m22.8,8.46H1M23.8,1H1%27%20fill=%27none%27%20stroke=%27%23fff%27%20stroke-linecap=%27round%27%20stroke-width=%272%27%2F%3E%3C%2Fsvg%3E");
-//         }
-//       }
-//     }
-//   }
-  
-//   // תפריט מתפרץ
-//   .menu-open {
-//     .list {
-//       display: flex; /* להציג את התפריט */
-//       flex-direction: column; /* ערימת תפריט במצב מתפרץ */
-//       position: absolute; /* להיות באותו מקום עם רקע */
-//       background: rgba(0, 0, 0, 0.9); /* צבע רקע לתפריט */
-//       top: 100%; /* מתחת ל-navbar */
-//       left: 0;
-//       width: 100%;
-//       padding: 10px 0;
-//       z-index: 999; /* להיות מעל לתוכן */
-      
-//       li {
-//         margin: 10px 0; /* רווח בין פריטים */
-//         text-align: center; /* למרכז את הטקסט */
-//       }
-//     }
-//   }
+    .user-greeting {
+      margin-left: 10px;
+    }
+    
+    .mobile-menu-button {
+      display: flex;
+      align-items: center;
+    }
+  }
   
