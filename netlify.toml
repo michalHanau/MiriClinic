@@ -2,7 +2,7 @@
   # הגדרת ה-base directory עבור החלק של הקליינט
   base = "client"
   command = "npm run build"
-  publish = "client/build"
+  publish = "build"
 
 
 [[redirects]]
