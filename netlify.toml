@@ -1,0 +1,16 @@
+[build]
+  # הגדרת ה-base directory עבור החלק של הקליינט
+  base = "client"
+  # הגדרת פקודת build עבור הקליינט
+  command = "npm run build"
+  # תיקיית הפאבליש (הקובץ שנוצר לאחר build) עבור הקליינט
+  publish = "client/build"
+
+[[redirects]]
+  from = "/api/*"
+  to = "/server/api/:splat"
+  status = 200
+
+[functions]
+  # הגדרת תיקיית הפונקציות (הפונקציות של Node.js)
+  directory = "server/functions"
