@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import AppointmentService from '../../services/appointments.service';
-import { Button, Typography, Grid, Box, CircularProgress, TextField } from '@mui/material';
+import { Button, Typography, Grid, Box, TextField } from '@mui/material';
 import { Appointment } from '../../models/appointments.model';
 import './AvailableAppointments.scss';
 

@@ -1,4 +1,4 @@
-import axios, { AxiosInstance, isAxiosError  } from 'axios';
+import axios, { AxiosInstance  } from 'axios';
 
 const BASE_URL = process.env.REACT_APP_API_URL;
 

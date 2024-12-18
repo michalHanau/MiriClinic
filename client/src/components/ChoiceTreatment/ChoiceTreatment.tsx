@@ -1,6 +1,6 @@
-import React, { FC, useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import TreatmentService from '../../services/treatment.service';
-import {  Box, Typography, Container, Card, CardActionArea, CardMedia, CardContent, Grid } from '@mui/material';
+import {  Box, Typography, Card, CardActionArea, CardMedia, CardContent, Grid } from '@mui/material';
 import { Link } from 'react-router-dom';
 
 interface ChoiceTreatmentProps { }

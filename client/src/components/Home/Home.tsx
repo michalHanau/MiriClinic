@@ -1,5 +1,5 @@
 import React from 'react';
-import { Box, Typography, Button } from '@mui/material';
+import { Box, Button } from '@mui/material';
 import './Home.scss';
 import { Link } from 'react-router-dom';
 import { useUser } from '../../hooks/UserProvider';

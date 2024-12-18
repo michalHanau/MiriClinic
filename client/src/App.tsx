@@ -2,26 +2,26 @@ import React, { useState } from 'react';
 import './App.css';
 import Calender from './components/Calender/Calendar';
 import ChoiceTreatment from './components/ChoiceTreatment/ChoiceTreatment';
-import Auth from './components/Login/Login';
+//import Auth from './components/Login/Login';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import Navbar from './components/NavBar/NavBar';
 import Home from './components/Home/Home';
 import { UserProvider } from './hooks/UserProvider';
-import AvailableAppointments from './components/AvailableAppointments/AvailableAppointments';
+//import AvailableAppointments from './components/AvailableAppointments/AvailableAppointments';
 
 function App() {
-  const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false);
-  const [username, setUsername] = useState<string>(''); // שם המשתמש אם מחוברים
+  // const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false);
+  // const [username, setUsername] = useState<string>(''); // שם המשתמש אם מחוברים
 
-  const handleLogin = () => {
-    setIsLoggedIn(true);
-    setUsername('מיכל'); // שם משתמש לדוגמה
-  };
+  // const handleLogin = () => {
+  //   setIsLoggedIn(true);
+  //   setUsername('מיכל'); // שם משתמש לדוגמה
+  // };
 
-  const handleLogout = () => {
-    setIsLoggedIn(false);
-    setUsername('');
-  };
+  // const handleLogout = () => {
+  //   setIsLoggedIn(false);
+  //   setUsername('');
+  // };
 
   return (
     <UserProvider>

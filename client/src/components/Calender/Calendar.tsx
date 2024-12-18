@@ -1,10 +1,10 @@
-import React, { FC, useEffect, useRef, useState } from 'react';
+import React, {useEffect, useRef, useState } from 'react';
 import FullCalendar from '@fullcalendar/react';
 import dayGridPlugin from '@fullcalendar/daygrid';
 import timeGridPlugin from '@fullcalendar/timegrid';
 import interactionPlugin from '@fullcalendar/interaction';
 import Tooltip from '@mui/material/Tooltip'; // ייבוא Tooltip
-import { toJewishDate, formatJewishDate, toHebrewJewishDate, formatJewishDateInHebrew, toGregorianDate, JewishMonth, } from "jewish-date";
+import { toJewishDate, toHebrewJewishDate} from "jewish-date";
 import AvailableAppointments from '../AvailableAppointments/AvailableAppointments';
 import { Link, useParams } from 'react-router-dom';
 import './Calendar.scss';
