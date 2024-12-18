@@ -1,10 +1,10 @@
 [build]
   # הגדרת ה-base directory עבור החלק של הקליינט
   base = "client"
-  # הגדרת פקודת build עבור הקליינט
   command = "npm run build"
-  # תיקיית הפאבליש (הקובץ שנוצר לאחר build) עבור הקליינט
   publish = "client/build"
+  environment = { NETLIFY_NEXT_PLUGIN_SKIP = "true" }
+
 
 [[redirects]]
   from = "/api/*"
