@@ -2,7 +2,6 @@ const appointmentModel = require('../models/appointmentsModel');
 const treatmentsModel = require('../models/treatmentsModel');
 const customersModel = require('../models/customersModel');
 require('dotenv').config();
-const timeZone = process.env.TZ
 const { DateTime } = require('luxon');
 const { google } = require('googleapis');
 
