@@ -41,7 +41,7 @@ const Login = (props: LoginProps) => {
             setFormData(new Customers('', '', '', '', new Date()))
             console.log("response", response)
             if (!response.success) {
-                alert(response.message);
+                alert("לא הצליח"+response.message);
                 return;
             }
             localStorage.setItem('token', response.token);
@@ -60,7 +60,7 @@ const Login = (props: LoginProps) => {
             const response = await AuthService.loginUser(formData);
             setFormData(new Customers('', '', '', '', new Date()))
             if (!response.success) {
-                alert(response.message);
+                alert("לא הצליח"+response.message);
                 return;
             }
             localStorage.setItem('token', response.token);
