@@ -6,8 +6,8 @@
 
 
 [[redirects]]
-  from = "/api/*"
-  to = "/server/api/:splat"
+  from = "/*"
+  to = "/"
   status = 200
 
 [functions]
