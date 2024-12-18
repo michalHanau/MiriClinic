@@ -48,13 +48,14 @@ class AuthService {
 
     // פונקציה לשליפת הטוקנים ולבדיקת תוקפם
     async getManagerTokens() {
-
         const manager = await customersModel.findOne({ customer_id: 14, role: roles.DEVELOPER });
 
         if (!manager) {
             throw new Error('Customer not found');
         }
         const tokens = manager.googleAuth;
+        console.log("tokens",tokens)
+
         //לבדוק למה נכנס לIF
         // console.log(tokens)
         // if (!tokens || !tokens.expiry_date) {
@@ -82,7 +83,7 @@ class AuthService {
     // פונקציה לרענון הטוקן
     async refreshAccessToken(tokens) {
         oAuth2Client.setCredentials(tokens); // הגדרת הטוקנים
-        console.log(oAuth2Client)
+        console.log("רענון הטוקן",oAuth2Client)
         const newTokens = await oAuth2Client.refreshAccessToken(); // רענון הטוקן
         return newTokens.credentials; // מחזירה את הטוקנים החדשים
     }

@@ -1,0 +1,22 @@
+// /* עיצוב תאריך עברי בצד ימין */
+// .fc-daygrid-day .jewish-date {
+//     position: absolute;
+//     right: 5px; /* הצב את התאריך העברי בצד ימין */
+//     top: 10px;   /* הצב את התאריך העברי למעלה */
+//     font-size: 10px;
+//     color: #333;
+//   }
+  
+.hebrew-date{
+    position: relative; 
+    margin-left: 23px;
+    left: 1px;
+    top: 0px;
+}
+  
+.hebrew-date-short{
+    position: relative; 
+    margin-left: 36px;
+    left: 1px;
+    top: 0px;
+}

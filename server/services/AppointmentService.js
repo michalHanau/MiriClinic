@@ -195,7 +195,6 @@ class AppointmentService {
     // }
 
     async insertNewAppointments(newAppointments, tokens, oAuth2Client) {
-        
         let appointments = new appointmentModel(newAppointments)
         await appointments.save()
 
@@ -222,18 +221,18 @@ class AppointmentService {
         }
 
         //למציאת שם הלקוחה
-        console.log(newAppointments.customer_id)
         const customer = await customersModel.findOne({ customer_id: newAppointments.customer_id });
         if (!customer) {
             throw new Error('customer not found');
         }
-        
+        console.log("treatment.calendar_color",treatment.calendar_color)
         // יצירת אובייקט האירוע
         const eventDetails = {
             title: treatment.treatment_name + "-" + customer.first_name + " " + customer.last_name,
-            description: "כאן שומרים הערות/פירוט" + newAppointments.notes,
-            startDateTime: startTime.toISOString(), // המרת לאיסום המומלץ של תאריך ושעה
-            endDateTime: endTime.toISOString(), // המרת לאיסום המומלץ של תאריך ושעה
+            description: newAppointments.notes,
+            startDateTime: startTime.toISOString(), // המרת לישום המומלץ של תאריך ושעה
+            endDateTime: endTime.toISOString(), // המרת לישום המומלץ של תאריך ושעה
+            colorId: treatment.calendar_color,
         };
         await this.addEventToManagerCalendar(eventDetails, tokens, oAuth2Client);
         return newAppointments;
@@ -258,6 +257,7 @@ class AppointmentService {
                 dateTime: eventDetails.endDateTime,
                 timeZone: 'Asia/Jerusalem',
             },
+            colorId: eventDetails.colorId,
         };
         //console.log("event", event)
 

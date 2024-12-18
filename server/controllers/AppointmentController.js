@@ -26,8 +26,9 @@ class AppointmentController extends Controller {
     }
 
     async insertNewAppointment(newAppointment) {
+        console.log("מגיע לקונטרולר")
         const { tokens, oAuth2Client } = await this.authServices.getManagerTokens();
-        console.log(oAuth2Client)
+        console.log(oAuth2Client,"oAuth2Client")
         const insertedObj = await this.service.insertNewAppointments(newAppointment,tokens,oAuth2Client);
 
         return insertedObj;

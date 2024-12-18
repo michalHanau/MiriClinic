@@ -1,0 +1,66 @@
+/* AvailableAppointments.css */
+
+/* Container for all available appointments */
+.appointments-container {
+    margin-top: 2%;
+    width: 90%;  
+  }
+  
+  .appointments-list{
+    width: 50%;
+  }
+
+  .appointments-grid {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    padding: 25px;
+  }
+  
+  .appointment-card {
+    width: 100%; /* תוכל לשנות כאן את הגודל */
+    max-width: 250px; /* לקביעת רוחב מקסימלי */
+    margin: 0 auto; /* למרכז את האלמנט */
+    text-align: center;
+  }
+
+  .appointment-card button {
+    border-color: black;
+    color: black;
+    width: 100%; // fullWidth
+  }
+  
+  .appointment-card button:hover {
+    border-color: black;
+    background-color: rgba(0, 0, 0, 0.08);
+  }
+  
+
+  .appointment-modal-box {
+    background-color: white;
+    padding: 20px;
+    width: 400px;
+    margin: 100px auto;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  }
+  
+  .appointment-modal-box h6 {
+    margin-bottom: 20px;
+  }
+
+  .appointment-details {
+    width: 35%;
+    margin-top: 16px; // 4 * 4px (MUI spacing)
+    padding: 16px; // 2 * 8px
+    border: 1px solid #ccc;
+    border-radius: 8px; // 2 * 4px
+  }
+  
+  
+
+//   .appointment-card:active {
+//     transform: translateY(1px);
+//   }
+  

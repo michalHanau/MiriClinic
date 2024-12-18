@@ -8,7 +8,8 @@ const treatmentsSchema = mongoose.Schema({
     diary:{
     starting_from: String, 
     days: Number
-    }
+    },
+    calendar_color: String
 }, { collection: 'Treatments' }
 )
 

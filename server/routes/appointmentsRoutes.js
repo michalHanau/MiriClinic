@@ -28,6 +28,7 @@ router.get('/available/:treatmentId', async (req, res, next) => {
 })
 
 router.post('/', async (req, res, next) => {
+    console.log("מגיע לROUTE")
     try {
         let result = await controller.insertNewAppointment(req.body);
         res.status(201).send(result);
