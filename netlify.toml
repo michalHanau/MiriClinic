@@ -14,3 +14,7 @@
 [functions]
   # הגדרת תיקיית הפונקציות (הפונקציות של Node.js)
   directory = "server/functions"
+
+[build.environment]
+  CI = "false"
+
