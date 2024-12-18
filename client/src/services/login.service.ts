@@ -4,7 +4,7 @@ import api, {} from "./httpService"
 
 class AuthService{
 
-    private BASE_URL: string = "/login";
+    BASE_URL: string = "/login";
 
     registerUser(data: Customers) {
         return api.post(`${this.BASE_URL}/register`, data)

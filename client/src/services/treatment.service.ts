@@ -3,7 +3,7 @@ import api from "./httpService"
 
 class TreatmentService{
 
-    private BASE_URL: string = "/treatments";
+    BASE_URL: string = "/treatments";
 
     getTreatmentName(){
         console.log("פונקצית GET")

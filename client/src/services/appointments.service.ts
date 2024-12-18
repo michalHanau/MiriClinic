@@ -3,7 +3,7 @@ import api from './httpService';
 
 class AppointmentService {
 
-  private BASE_URL: string = "/appointments";
+  BASE_URL: string = "/appointments";
 
   getAvailableAppointments(treatmentId: number , selectedDate: string) {
     return api.get(`${this.BASE_URL}/available/${treatmentId}`,{params: { date: selectedDate }})
