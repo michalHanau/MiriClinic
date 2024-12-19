@@ -27,6 +27,7 @@ class AuthService {
 
   async loginUser(email) {
     const user = await customersModel.findOne({ email });
+    console.log("user",user)
     if (!user) {
       return { success: false, message: 'המשתמש לא נמצא' }
     }
