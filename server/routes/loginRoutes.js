@@ -15,6 +15,7 @@ router.post('/register', async (req, res, next) => {
 });
 
 router.post('/login', async (req, res, next) => {
+    console.log("router")
     try {
         const result = await controller.loginUser(req.body);
         res.json(result);

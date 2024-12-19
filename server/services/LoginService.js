@@ -6,8 +6,8 @@ const roles = require('../enum/rolesEnum');
 
 class AuthService {
   constructor() {
-    this.secretKey = process.env.JWT_SECRET; 
-}
+    this.secretKey = process.env.JWT_SECRET;
+  }
 
   async registerUser(first_name, last_name, phone, email, birthdate) {
     const existingUser = await customersModel.findOne({ email });
@@ -17,7 +17,7 @@ class AuthService {
     const maxCustomer = await customersModel.findOne().sort({ customer_id: -1 }).select('customer_id -_id');
     const customer_id = maxCustomer ? maxCustomer.customer_id + 1 : 1;
     //const hashedPassword = await bcrypt.hash(password, 10);
-    const newUser = new customersModel({customer_id, first_name, last_name, phone, email, birthdate, role:roles.DEVELOPER });
+    const newUser = new customersModel({ customer_id, first_name, last_name, phone, email, birthdate, role: roles.DEVELOPER });
     await newUser.save();
     //לבקש פה תוקן ולשלוח 
     // const token = jwt.sign({ userId: user._id }, this.secretKey, { expiresIn: '1h' });
@@ -25,7 +25,7 @@ class AuthService {
     return { success: true, user: newUser };
   }
 
-  async loginUser (email){
+  async loginUser(email) {
     const user = await customersModel.findOne({ email });
     if (!user) {
       return { success: false, message: 'המשתמש לא נמצא' }
@@ -35,7 +35,7 @@ class AuthService {
     //   throw new Error('Invalid password');
     // }
     const token = jwt.sign({ userId: user._id }, this.secretKey, { expiresIn: '1h' });
-    return { success: true, token:token, user:user };
+    return { success: true, token: token, user: user };
   };
 
 }
