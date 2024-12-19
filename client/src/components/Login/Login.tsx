@@ -58,6 +58,7 @@ const Login = (props: LoginProps) => {
         event.preventDefault();
         try {
             const response = await AuthService.loginUser(formData);
+            console.log("Login response:", response);
             setFormData(new Customers('', '', '', '', new Date()))
             if (!response.success) {
                 alert("!!לא הצליח"+response.message);
