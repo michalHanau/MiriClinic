@@ -4,7 +4,7 @@ import api, {} from "./httpService"
 
 class AuthService{
 
-    BASE_URL: string = "/login";
+    BASE_URL: string = "https://miriclinic-server.onrender.com/api/login";
 
     registerUser(data: Customers) {
         return api.post(`${this.BASE_URL}/register`, data)
