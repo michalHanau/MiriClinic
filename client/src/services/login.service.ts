@@ -18,12 +18,14 @@ class AuthService{
     loginUser(data: any) {
         console.log("נכנסנו לפונקציית ההתחברות");
         console.log(process.env.REACT_APP_API_URL,this.BASE_URL);
-        return api.post(`https://miriclinic-server.onrender.com/api/login/login`, data)
+        console.log("Base URL:", api.defaults.baseURL);
+        return api.post(`/login/login`, data)
             .then(res => res.data)
             .catch(error => {
                 console.error('Error during login:', error);
                 throw error;
             });
+            
     }
     
 }
