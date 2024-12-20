@@ -3,7 +3,7 @@ import axios, { AxiosInstance  } from 'axios';
 const BASE_URL = `https://miriclinic-server.onrender.com/api`;
 
 const api: AxiosInstance = axios.create({
-  baseURL: `https://miriclinic-server.onrender.com/api`,
+  baseURL: "https://miriclinic-server.onrender.com/api",
   headers: {
     'Content-Type': 'application/json',
   },
