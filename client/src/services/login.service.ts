@@ -19,7 +19,7 @@ class AuthService{
         console.log("נכנסנו לפונקציית ההתחברות");
         console.log(process.env.REACT_APP_API_URL,this.BASE_URL);
         console.log("Base URL:", api.defaults.baseURL);
-        return api.post(`/login/login`, data)
+        return api.post(`${this.BASE_URL}/login`, data)
             .then(res => res.data)
             .catch(error => {
                 console.error('Error during login:', error);
