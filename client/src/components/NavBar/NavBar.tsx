@@ -44,7 +44,9 @@ const Navbar = (props: NavbarProps) => {
           <Hidden smDown>
             <Box className="menu-items">
               <Button color="inherit" component={Link} to="/about">אודות</Button>
-              <Button color="inherit" component={Link} to={userName ? "/ChoiceTreatment" : "/Auth"}>קביעת תור</Button>
+              <Button color="inherit" component={Link} to="/ChoiceTreatment">קביעת תור</Button>
+              {/* <Button color="inherit" component={Link} to={userName ? "/ChoiceTreatment" : "/Auth"}>קביעת תור</Button> */}
+
               {userName && (
                 <Button color="inherit" component={Link} to="/my-appointments">התורים שלי</Button>
               )}
