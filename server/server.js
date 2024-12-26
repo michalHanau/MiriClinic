@@ -17,6 +17,14 @@ const port = process.env.PORT || 3000;
 app.use(express.json());
 
 app.use(cors());
+
+app.use(
+    '/api',
+    createProxyMiddleware({
+      target: 'https://miriclinic-server.onrender.com', // הכתובת של השרת שלך
+      changeOrigin: true,
+    })
+  );
   
 app.use('/api/appointments', appointmentsRoute);
 app.use('/api/customers', customersRoute);
