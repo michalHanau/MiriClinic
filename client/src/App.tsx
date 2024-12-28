@@ -3,7 +3,7 @@ import './App.css';
 import Calender from './components/Calender/Calendar';
 import ChoiceTreatment from './components/ChoiceTreatment/ChoiceTreatment';
 //import Auth from './components/Login/Login';
-import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import { HashRouter  as Router, Route, Routes } from 'react-router-dom';
 import Navbar from './components/NavBar/NavBar';
 import Home from './components/Home/Home';
 import { UserProvider } from './hooks/UserProvider';
