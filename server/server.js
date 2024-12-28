@@ -18,13 +18,17 @@ app.use(express.json());
 
 app.use(cors());
 
-app.use(
-    '/api',
-    createProxyMiddleware({
-      target: 'https://miriclinic-server.onrender.com', // הכתובת של השרת שלך
-      changeOrigin: true,
-    })
-  );
+// app.use(
+//     '/api',
+//     createProxyMiddleware({
+//       target: 'https://miriclinic-server.onrender.com', // הכתובת של השרת שלך
+//       changeOrigin: true,
+//     })
+//   );
+
+  app.get('/*',(req,res)=>{
+    res.sendFile(path.join(__dirname+'/app/index.html'));
+  })
   
 app.use('/api/appointments', appointmentsRoute);
 app.use('/api/customers', customersRoute);
