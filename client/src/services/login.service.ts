@@ -16,7 +16,7 @@ class AuthService{
     }
 
     loginUser(data: any) {
-        return api.post(`login/login`, data)
+        return api.post(`/login/login`, data)
             .then(res => res.data)
             .catch(error => {
                 console.error('Error during login:', error);
