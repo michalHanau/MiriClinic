@@ -57,6 +57,7 @@ const Login = (props: LoginProps) => {
     const handleLogin = async (event: React.FormEvent) => {
         event.preventDefault();
         try {
+            console.log("formData:", formData);
             const response = await AuthService.loginUser(formData);
             console.log("Login response:", response);
             setFormData(new Customers('', '', '', '', new Date()))
